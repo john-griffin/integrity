@@ -20,11 +20,11 @@ require "integrity"
 # require "integrity/notifier/amqp"
 
 Integrity.configure do |c|
-  c.database     =  "sqlite3:integrity.db"
-  c.directory    =  "builds"
-  c.base_url     =  "http://ci.example.org"
-  c.log          =  "integrity.log"
-  c.github_token =  "SECRET"
-  c.build_all    = true
-  c.builder      = :threaded, 5
+  c.database  ENV["DATABASE_URL"]
+  c.directory "tmp"
+  c.base_url  ENV["URL"]
+  c.log       "tmp/integrity.log"
+  c.github    ENV["GITHUB_TOKEN"] || "TOKEN"
+  c.build_all!
+  c.builder :threaded, 5
 end
